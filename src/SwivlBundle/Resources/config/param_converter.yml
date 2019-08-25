@@ -1,0 +1,7 @@
+services:
+  swivl.param_converter.request_body_representation:
+    class: SwivlBundle\ParamConverter\Request\RequestBodyRepresentationParamConverter
+    arguments:
+      - "@jms_serializer.serializer"
+    tags:
+      - { name: request.param_converter, converter: request_body_representation_param_converter }

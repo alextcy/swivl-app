@@ -1,0 +1,11 @@
+#swivl_homepage:
+#    path:     /
+#    defaults: { _controller: SwivlBundle:Default:index }
+
+swivl.api.classroom:
+  resource: "@SwivlBundle/Controller/Classroom/"
+  type: annotation
+
+#SwivlBundle:
+#  resource: "@SwivlBundle/Controller/Classroom/"
+#  type:     annotation

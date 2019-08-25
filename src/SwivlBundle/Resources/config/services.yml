@@ -1,0 +1,15 @@
+services:
+    # Classroom repository
+    swivl.repository.classroom.orm:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - 'SwivlBundle\Service\Classroom\Model\Classroom'
+        public: false
+
+    swivl.repository.classroom:
+        class: SwivlBundle\Service\Classroom\Repository\ClassroomRepository
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@swivl.repository.classroom.orm"
+

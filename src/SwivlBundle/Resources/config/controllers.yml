@@ -1,0 +1,27 @@
+services:
+
+    swivl.controller.get_classroom:
+        class: SwivlBundle\Controller\ClassRoom\GetClassRoomController
+        calls:
+            - ['setContainer', ['@service_container']]
+        public: true
+
+    swivl.controller.get_classrooms:
+        class: SwivlBundle\Controller\ClassRoom\GetClassRoomsController
+        calls:
+            - ['setContainer', ['@service_container']]
+        public: true
+
+    swivl.controller.post_classroom:
+        class: SwivlBundle\Controller\Classroom\PostClassroomController
+        arguments:
+            - "@tactician.commandbus"
+        calls:
+            - ['setContainer', ['@service_container']]
+        public: true
+
+    swivl.controller.put_classroom:
+        class: SwivlBundle\Controller\Classroom\PutClassroomController
+        calls:
+            - ['setContainer', ['@service_container']]
+        public: true

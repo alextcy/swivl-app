@@ -1,0 +1,9 @@
+services:
+
+  swivl.listener.validation:
+    class: SwivlBundle\EventListener\ValidationListener
+    arguments:
+      - "@validator"
+      #- "@tonic_rest.validation_failed_exception_factory"
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController, priority: -256}
