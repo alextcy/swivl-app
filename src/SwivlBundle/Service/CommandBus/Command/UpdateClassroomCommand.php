@@ -1,13 +1,17 @@
 <?php
 
-
 namespace SwivlBundle\Service\CommandBus\Command;
 
 /**
- * Class ClassroomCreateCommand
+ * Class UpdateClassroomCommand
  */
-class ClassroomCreateCommand
+class UpdateClassroomCommand
 {
+    /**
+     * @var int
+     */
+    private $id;
+
     /**
      * @var string
      */
@@ -19,13 +23,23 @@ class ClassroomCreateCommand
     private $enable;
 
     /**
+     * @param int    $id
      * @param string $name
-     * @param bool $enable
+     * @param bool   $enable
      */
-    public function __construct(string $name, bool $enable)
+    public function __construct(int $id, string $name, bool $enable)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->enable = $enable;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     /**

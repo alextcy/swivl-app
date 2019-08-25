@@ -8,7 +8,10 @@ use SwivlBundle\Service\Classroom\Repository\ClassroomRepository;
 use SwivlBundle\Service\CommandBus\CommandResult\CommandResultFactory;
 use SwivlBundle\Service\CommandBus\CommandResult\CommandResultInterface;
 
-class ClassroomCreateCommandHandler
+/**
+ * Class CreateClassroomCommandHandler
+ */
+class CreateClassroomCommandHandler
 {
     /**
      * @var ClassroomRepository
@@ -16,26 +19,19 @@ class ClassroomCreateCommandHandler
     private $classroomRepository;
 
     /**
-     * @var CommandResultFactory
-     */
-    private $resultFactory;
-
-    /**
      * @param ClassroomRepository $classroomRepository
-     * @param CommandResultFactory $resultFactory
      */
-    public function __construct(ClassroomRepository $classroomRepository, CommandResultFactory $resultFactory)
+    public function __construct(ClassroomRepository $classroomRepository)
     {
         $this->classroomRepository = $classroomRepository;
-        $this->resultFactory = $resultFactory;
     }
 
     /**
-     * @param ClassroomCreateCommand $command
+     * @param CreateClassroomCommand $command
      *
      * @return CommandResultInterface
      */
-    public function handle(ClassroomCreateCommand $command): CommandResultInterface
+    public function handle(CreateClassroomCommand $command): CommandResultInterface
     {
         $classroom = new Classroom(
             $command->getName(),
@@ -44,16 +40,7 @@ class ClassroomCreateCommandHandler
 
         $this->classroomRepository->save($classroom);
 
-        return $this->successResult($classroom);
-    }
 
-
-    private function successResult(Classroom $classroom): CommandResultInterface
-    {
-        $context = [
-            'id' => $classroom->getId(),
-        ];
-
-        return $this->resultFactory->create(true, $context);
+        return new CreateClassroomCommandResult($classroom->getId());
     }
 }

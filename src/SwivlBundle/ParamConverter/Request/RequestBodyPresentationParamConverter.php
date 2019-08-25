@@ -6,12 +6,12 @@ use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
-use SwivlBundle\ResourceRepresentation\ResourceRepresentationInterface;
+use SwivlBundle\Presentation\RequestBodyPresentationInterface;
 
 /**
  * Class ResourceRepresentationParamConverter
  */
-class RequestBodyRepresentationParamConverter implements ParamConverterInterface
+class RequestBodyPresentationParamConverter implements ParamConverterInterface
 {
     /**
      * @var SerializerInterface
@@ -35,7 +35,7 @@ class RequestBodyRepresentationParamConverter implements ParamConverterInterface
         return
             ($configuration instanceof ParamConverter)
             && (null !== $configuration->getClass())
-            && is_a($configuration->getClass(), ResourceRepresentationInterface::class, true);
+            && is_a($configuration->getClass(), RequestBodyPresentationInterface::class, true);
     }
 
     /**

@@ -1,17 +1,17 @@
 <?php
 
-namespace SwivlBundle\EventListener;
+namespace SwivlBundle\EventListener\Common;
 
-use SwivlBundle\ResourceRepresentation\QueryRepresentationInterface;
+use SwivlBundle\EventListener\ValidationFailedException;
+use SwivlBundle\EventListener\ValidationFailedExceptionFactoryInterface;
+use SwivlBundle\Presentation\QueryPresentationInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use SwivlBundle\ResourceRepresentation\ResourceRepresentationInterface;
+use SwivlBundle\Presentation\RequestBodyPresentationInterface;
 
-//use Tonic\Bundle\RestBundle\ResourceRepresentation\QueryRepresentationInterface;
-//use Tonic\Bundle\RestBundle\ResourceRepresentation\ResourceRepresentationInterface;
-//use Tonic\Bundle\RestBundle\Validation\Exception\ValidationFailedException;
-//use Tonic\Bundle\RestBundle\Validation\ValidationFailedExceptionFactoryInterface;
-
+/**
+ * Class ValidationListener
+ */
 class ValidationListener
 {
     /**
@@ -43,14 +43,14 @@ class ValidationListener
      */
     public function onKernelController(FilterControllerEvent $event)
     {
-        /** @var ResourceRepresentationInterface $resourceRepresentation */
+        /** @var RequestBodyPresentationInterface $resourceRepresentation */
         $resourceRepresentation = null;
         foreach ($event->getRequest()->attributes->all() as $possibleControllerArgument) {
             if (
                 is_object($possibleControllerArgument) &&
-                ($possibleControllerArgument instanceof ResourceRepresentationInterface
+                ($possibleControllerArgument instanceof RequestBodyPresentationInterface
                 ||
-                $possibleControllerArgument instanceof QueryRepresentationInterface)) {
+                $possibleControllerArgument instanceof QueryPresentationInterface)) {
                 $resourceRepresentation = $possibleControllerArgument;
                 continue;
             }

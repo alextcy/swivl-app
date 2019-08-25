@@ -29,9 +29,19 @@ class ClassroomRepository
     }
 
 
-    public function save(Classroom $classroom)
+    public function save(Classroom $classroom): void
     {
         $this->entityManager->persist($classroom);
         $this->entityManager->flush();
+    }
+
+    /**
+     * @param array $criteria
+     *
+     * @return null|Classroom
+     */
+    public function findOneBy(array $criteria): ?Classroom
+    {
+        return $this->entityRepository->findOneBy($criteria);
     }
 }

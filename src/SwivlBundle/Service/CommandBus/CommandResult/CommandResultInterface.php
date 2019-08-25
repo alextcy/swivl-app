@@ -7,13 +7,4 @@ namespace SwivlBundle\Service\CommandBus\CommandResult;
  */
 interface CommandResultInterface
 {
-    /**
-     * @return bool
-     */
-    public function isSuccess(): bool;
-
-    /**
-     * @return array
-     */
-    public function getContext(): array;
 }

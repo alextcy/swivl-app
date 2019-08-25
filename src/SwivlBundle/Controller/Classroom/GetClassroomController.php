@@ -14,8 +14,8 @@ class GetClassroomController extends Controller
 
     /**
      * @Route(
-     *     "/classrooms/{classroom_id}",
-     *     requirements={"account_id": "\d+", "classroom_id": "\d+"},
+     *     "/classrooms/{id}",
+     *     requirements={"id": "\d+"},
      *     name="get_classroom",
      *     methods={"GET"}
      * )

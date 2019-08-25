@@ -16,12 +16,16 @@ services:
         class: SwivlBundle\Controller\Classroom\PostClassroomController
         arguments:
             - "@tactician.commandbus"
+            - "@swivl.repository.classroom"
         calls:
             - ['setContainer', ['@service_container']]
         public: true
 
     swivl.controller.put_classroom:
         class: SwivlBundle\Controller\Classroom\PutClassroomController
+        arguments:
+            - "@tactician.commandbus"
+            - "@swivl.repository.classroom"
         calls:
             - ['setContainer', ['@service_container']]
         public: true

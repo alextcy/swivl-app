@@ -1,13 +1,15 @@
 services:
 
-    swivl.command_bus.factory.command_result:
-        class: SwivlBundle\Service\CommandBus\CommandResult\CommandResultFactory
-
     swivl.command_bus.create_classroom:
-        class: SwivlBundle\Service\CommandBus\Command\ClassroomCreateCommandHandler
+        class: SwivlBundle\Service\CommandBus\Command\CreateClassroomCommandHandler
         arguments:
             - "@swivl.repository.classroom"
-            - "@swivl.command_bus.factory.command_result"
         tags:
-            - { name: tactician.handler, command: SwivlBundle\Service\CommandBus\Command\ClassroomCreateCommand }
+            - { name: tactician.handler, command: SwivlBundle\Service\CommandBus\Command\CreateClassroomCommand }
 
+    swivl.command_bus.update_classroom:
+        class: SwivlBundle\Service\CommandBus\Command\UpdateClassroomCommandHandler
+        arguments:
+            - "@swivl.repository.classroom"
+        tags:
+            - { name: tactician.handler, command: SwivlBundle\Service\CommandBus\Command\UpdateClassroomCommand }

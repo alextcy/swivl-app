@@ -1,14 +1,15 @@
 <?php
 
-namespace SwivlBundle\ResourceRepresentation;
+namespace SwivlBundle\Presentation\Request;
 
+use SwivlBundle\Presentation\RequestBodyPresentationInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  * Class PostClassroomResourceRepresentation
  */
-class PostClassroomResourceRepresentation implements ResourceRepresentationInterface
+class PostClassroomPresentation implements RequestBodyPresentationInterface
 {
     /**
      * @JMS\Type("string")
