@@ -9,7 +9,6 @@ use SwivlBundle\Service\Classroom\Model\Classroom;
 use SwivlBundle\Service\Classroom\Repository\ClassroomRepository;
 use SwivlBundle\Service\CommandBus\Command\CreateClassroomCommand;
 use SwivlBundle\Service\CommandBus\Command\CreateClassroomCommandResult;
-use SwivlBundle\Service\CommandBus\CommandResult\CommandResult;
 use SwivlBundle\Controller\ApplicationResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

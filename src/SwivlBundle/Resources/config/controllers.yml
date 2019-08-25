@@ -1,13 +1,13 @@
 services:
 
     swivl.controller.get_classroom:
-        class: SwivlBundle\Controller\ClassRoom\GetClassRoomController
+        class: SwivlBundle\Controller\Classroom\GetClassroomController
         calls:
             - ['setContainer', ['@service_container']]
         public: true
 
     swivl.controller.get_classrooms:
-        class: SwivlBundle\Controller\ClassRoom\GetClassRoomsController
+        class: SwivlBundle\Controller\Classroom\GetClassroomsController
         calls:
             - ['setContainer', ['@service_container']]
         public: true

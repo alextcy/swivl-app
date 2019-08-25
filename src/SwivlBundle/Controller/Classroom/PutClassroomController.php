@@ -11,7 +11,6 @@ use SwivlBundle\Service\Classroom\Model\Classroom;
 use SwivlBundle\Service\Classroom\Repository\ClassroomRepository;
 use SwivlBundle\Service\CommandBus\Command\UpdateClassroomCommand;
 use SwivlBundle\Service\CommandBus\Command\UpdateClassroomCommandResult;
-use SwivlBundle\Service\CommandBus\CommandResult\CommandResult;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
