@@ -1,7 +1,15 @@
 services:
+
   swivl.param_converter.request_body_presentation:
-    class: SwivlBundle\ParamConverter\Request\RequestBodyPresentationParamConverter
-    arguments:
-      - "@jms_serializer.serializer"
-    tags:
-      - { name: request.param_converter, converter: request_body_presentation_param_converter }
+      class: SwivlBundle\ParamConverter\Request\RequestBodyPresentationParamConverter
+      arguments:
+          - "@jms_serializer.serializer"
+      tags:
+          - { name: request.param_converter, converter: request_body_presentation_param_converter }
+
+  swivl.param_converter.query_presentation:
+      class: SwivlBundle\ParamConverter\Request\QueryPresentationParamConverter
+      arguments:
+          - "@jms_serializer.serializer"
+      tags:
+          - { name: request.param_converter, converter: query_presentation_param_converter }

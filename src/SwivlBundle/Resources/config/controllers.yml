@@ -6,8 +6,10 @@ services:
             - ['setContainer', ['@service_container']]
         public: true
 
-    swivl.controller.get_classrooms:
-        class: SwivlBundle\Controller\Classroom\GetClassroomsController
+    swivl.controller.get_classroom_list:
+        class: SwivlBundle\Controller\Classroom\GetClassroomListController
+        arguments:
+            - "@swivl.repository.classroom"
         calls:
             - ['setContainer', ['@service_container']]
         public: true

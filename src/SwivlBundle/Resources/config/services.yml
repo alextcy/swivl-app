@@ -1,4 +1,8 @@
 services:
+
+    swivl.repository.paginator.factory:
+        class: SwivlBundle\Service\Classroom\Repository\Paginator\PaginatorFactory
+
     # Classroom repository
     swivl.repository.classroom.orm:
         class: Doctrine\ORM\EntityRepository
@@ -12,4 +16,5 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@swivl.repository.classroom.orm"
+            - "@swivl.repository.paginator.factory"
 
