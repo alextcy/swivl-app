@@ -5,7 +5,9 @@ namespace SwivlBundle\EventListener\Common;
 use JMS\Serializer\Exception\UnsupportedFormatException;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
+use SwivlBundle\Controller\ApplicationResponse;
 use SwivlBundle\Controller\ApplicationResponseInterface;
+use SwivlBundle\Presentation\ResponsePresentationInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 
 /**
@@ -35,8 +37,8 @@ class ControllerResponseListener
 
     public function onKernelView(GetResponseForControllerResultEvent $event)
     {
-        $presentation = $event->getControllerResult();
-        if (!($presentation instanceof ApplicationResponseInterface)) {
+        $applicationResponse = $event->getControllerResult();
+        if (!($applicationResponse instanceof ApplicationResponseInterface)) {
             return;
         }
 
@@ -51,10 +53,12 @@ class ControllerResponseListener
                     $context->setSerializeNull($this->serializeNull);
                 }
 
-                $acceptableFormat = $request->getFormat($acceptableContentType);
-                $serialized = $this->serializer->serialize($presentation->getData(), $acceptableFormat, $context);
+                $presentationData = $this->getPresentationData($applicationResponse);
 
-                $response = $presentation->getResponse();
+                $acceptableFormat = $request->getFormat($acceptableContentType);
+                $serialized = $this->serializer->serialize($presentationData, $acceptableFormat, $context);
+
+                $response = $applicationResponse->getResponse();
                 $response->setContent($serialized);
                 $response->headers->set('Content-Type', $acceptableContentType);
 
@@ -65,5 +69,21 @@ class ControllerResponseListener
                 continue;
             }
         }
+    }
+
+    /**
+     * @param ApplicationResponse $applicationResponse
+     * @return string|ResponsePresentationInterface
+     */
+    private function getPresentationData(ApplicationResponse $applicationResponse)
+    {
+        $presentationData = $applicationResponse->getData();
+
+        //if response NO CONTENT or just empty response body (to prevent NotAcceptableException)
+        if ($applicationResponse->getData() === null && !$this->serializeNull) {
+            $presentationData = '';
+        }
+
+        return $presentationData;
     }
 }

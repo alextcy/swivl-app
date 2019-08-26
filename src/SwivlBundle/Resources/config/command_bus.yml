@@ -13,3 +13,10 @@ services:
             - "@swivl.repository.classroom"
         tags:
             - { name: tactician.handler, command: SwivlBundle\Service\CommandBus\Command\UpdateClassroomCommand }
+
+    swivl.command_bus.delete_classroom:
+        class: SwivlBundle\Service\CommandBus\Command\DeleteClassroomCommandHandler
+        arguments:
+            - "@swivl.repository.classroom"
+        tags:
+            - { name: tactician.handler, command: SwivlBundle\Service\CommandBus\Command\DeleteClassroomCommand }

@@ -57,9 +57,9 @@ class ApplicationResponse implements ApplicationResponseInterface
     }
 
     /**
-     * @return ResponsePresentationInterface
+     * @return ResponsePresentationInterface|null
      */
-    public function getData()
+    public function getData(): ?ResponsePresentationInterface
     {
         return $this->data;
     }

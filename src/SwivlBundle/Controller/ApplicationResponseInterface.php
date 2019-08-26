@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 interface ApplicationResponseInterface
 {
     /**
-     * @return ResponsePresentationInterface
+     * @return ResponsePresentationInterface|null
      */
-    public function getData();
+    public function getData(): ?ResponsePresentationInterface;
 
     /**
      * @return Response

@@ -4,13 +4,12 @@ namespace SwivlBundle\Service\CommandBus\Command;
 
 use SwivlBundle\Service\Classroom\Model\Classroom;
 use SwivlBundle\Service\Classroom\Repository\ClassroomRepository;
-use SwivlBundle\Service\CommandBus\CommandResult\CommandResultFactory;
 use SwivlBundle\Service\CommandBus\CommandResult\CommandResultInterface;
 
 /**
- * Class UpdateClassroomCommandHandler
+ * Class DeleteClassroomCommandHandler
  */
-class UpdateClassroomCommandHandler
+class DeleteClassroomCommandHandler
 {
     /**
      * @var ClassroomRepository
@@ -26,11 +25,9 @@ class UpdateClassroomCommandHandler
     }
 
     /**
-     * @param UpdateClassroomCommand $command
-     *
-     * @return CommandResultInterface
+     * @param DeleteClassroomCommand $command
      */
-    public function handle(UpdateClassroomCommand $command): CommandResultInterface
+    public function handle(DeleteClassroomCommand $command): void
     {
         $classroom = $this->classroomRepository->findOneBy(['id' => $command->getId()]);
 
@@ -38,11 +35,6 @@ class UpdateClassroomCommandHandler
             //throw exception
         }
 
-        $classroom->setName($command->getName());
-        $classroom->setEnabled($command->isEnable());
-
-        $this->classroomRepository->save($classroom);
-
-        return new UpdateClassroomCommandResult($classroom->getId());
+        $this->classroomRepository->remove($classroom);
     }
 }
