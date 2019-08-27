@@ -4,9 +4,7 @@ namespace SwivlBundle\Controller\Classroom;
 
 use SwivlBundle\Controller\ApplicationResponseInterface;
 use SwivlBundle\Presentation\Request\PostClassroomPresentation;
-use SwivlBundle\Presentation\Response\ClassroomPresentation;
 use SwivlBundle\Presentation\Response\Factory\ClassroomPresentationFactory;
-use SwivlBundle\Service\Classroom\Model\Classroom;
 use SwivlBundle\Service\Classroom\Repository\ClassroomRepository;
 use SwivlBundle\Service\CommandBus\Command\CreateClassroomCommand;
 use SwivlBundle\Service\CommandBus\Command\CreateClassroomCommandResult;

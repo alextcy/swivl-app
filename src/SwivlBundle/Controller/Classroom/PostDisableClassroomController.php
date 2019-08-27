@@ -5,7 +5,6 @@ namespace SwivlBundle\Controller\Classroom;
 use League\Tactician\CommandBus;
 use SwivlBundle\Controller\ApplicationResponse;
 use SwivlBundle\Controller\ApplicationResponseInterface;
-use SwivlBundle\Presentation\Response\ClassroomPresentation;
 use SwivlBundle\Presentation\Response\Factory\ClassroomPresentationFactory;
 use SwivlBundle\Service\CommandBus\Command\DisableClassroomCommand;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
