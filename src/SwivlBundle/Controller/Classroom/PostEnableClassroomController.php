@@ -5,20 +5,17 @@ namespace SwivlBundle\Controller\Classroom;
 use League\Tactician\CommandBus;
 use SwivlBundle\Controller\ApplicationResponse;
 use SwivlBundle\Controller\ApplicationResponseInterface;
-use SwivlBundle\Presentation\Request\PutClassroomPresentation;
 use SwivlBundle\Presentation\Response\ClassroomPresentation;
 use SwivlBundle\Service\Classroom\Model\Classroom;
-use SwivlBundle\Service\Classroom\Repository\ClassroomRepository;
-use SwivlBundle\Service\CommandBus\Command\UpdateClassroomCommand;
-use SwivlBundle\Service\CommandBus\Command\UpdateClassroomCommandResult;
+use SwivlBundle\Service\CommandBus\Command\EnableClassroomCommand;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * @Route(service="swivl.controller.put_classroom")
+ * @Route(service="swivl.controller.post_enable_classroom")
  */
-class PutClassroomController extends Controller
+class PostEnableClassroomController extends Controller
 {
     /**
      * @var CommandBus
@@ -35,24 +32,20 @@ class PutClassroomController extends Controller
 
     /**
      * @Route(
-     *     "/classrooms/{id}",
+     *     "/classrooms/{id}/enable",
      *     requirements={"id": "\d+"},
-     *     name="put_classroom",
-     *     methods={"PUT"}
+     *     name="post_enable_classroom",
+     *     methods={"POST"}
      * )
      *
      * @param Classroom $classroom
-     * @param PutClassroomPresentation $putClassroom
      *
      * @return ApplicationResponseInterface
      */
-    public function updateClassroom(Classroom $classroom, PutClassroomPresentation $putClassroom)
+    public function disableClassroom(Classroom $classroom): ApplicationResponseInterface
     {
-        /** @var UpdateClassroomCommandResult $result */
-        $result = $this->commandBus->handle(new UpdateClassroomCommand(
-            $classroom->getId(),
-            $putClassroom->name,
-            $putClassroom->enable
+        $this->commandBus->handle(new EnableClassroomCommand(
+            $classroom->getId()
         ));
 
         $presentation = $this->getClassroomPresentation($classroom);

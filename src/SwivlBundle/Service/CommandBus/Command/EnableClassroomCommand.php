@@ -3,9 +3,9 @@
 namespace SwivlBundle\Service\CommandBus\Command;
 
 /**
- * Class DisableClassroomCommand
+ * Class EnableClassroomCommand
  */
-class DisableClassroomCommand
+class EnableClassroomCommand
 {
     /**
      * @var int

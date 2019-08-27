@@ -20,3 +20,17 @@ services:
             - "@swivl.repository.classroom"
         tags:
             - { name: tactician.handler, command: SwivlBundle\Service\CommandBus\Command\DeleteClassroomCommand }
+
+    swivl.command_bus.disable_classroom:
+        class: SwivlBundle\Service\CommandBus\Command\DisableClassroomCommandHandler
+        arguments:
+            - "@swivl.repository.classroom"
+        tags:
+            - { name: tactician.handler, command: SwivlBundle\Service\CommandBus\Command\DisableClassroomCommand }
+
+    swivl.command_bus.enable_classroom:
+        class: SwivlBundle\Service\CommandBus\Command\EnableClassroomCommandHandler
+        arguments:
+            - "@swivl.repository.classroom"
+        tags:
+            - { name: tactician.handler, command: SwivlBundle\Service\CommandBus\Command\EnableClassroomCommand }

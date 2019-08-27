@@ -27,13 +27,28 @@ services:
         class: SwivlBundle\Controller\Classroom\PutClassroomController
         arguments:
             - "@tactician.commandbus"
-            - "@swivl.repository.classroom"
         calls:
             - ['setContainer', ['@service_container']]
         public: true
 
     swivl.controller.delete_classroom:
         class: SwivlBundle\Controller\Classroom\DeleteClassroomController
+        arguments:
+            - "@tactician.commandbus"
+        calls:
+            - ['setContainer', ['@service_container']]
+        public: true
+
+    swivl.controller.post_disable_classroom:
+        class: SwivlBundle\Controller\Classroom\PostDisableClassroomController
+        arguments:
+            - "@tactician.commandbus"
+        calls:
+            - ['setContainer', ['@service_container']]
+        public: true
+
+    swivl.controller.post_enable_classroom:
+        class: SwivlBundle\Controller\Classroom\PostEnableClassroomController
         arguments:
             - "@tactician.commandbus"
         calls:
