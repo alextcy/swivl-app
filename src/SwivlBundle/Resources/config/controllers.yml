@@ -2,6 +2,8 @@ services:
 
     swivl.controller.get_classroom:
         class: SwivlBundle\Controller\Classroom\GetClassroomController
+        arguments:
+            - "@swivl.presentation.factory.classroom"
         calls:
             - ['setContainer', ['@service_container']]
         public: true
@@ -10,6 +12,7 @@ services:
         class: SwivlBundle\Controller\Classroom\GetClassroomListController
         arguments:
             - "@swivl.repository.classroom"
+            - "@swivl.presentation.factory.classroom_paginated_list"
         calls:
             - ['setContainer', ['@service_container']]
         public: true
@@ -19,6 +22,7 @@ services:
         arguments:
             - "@tactician.commandbus"
             - "@swivl.repository.classroom"
+            - "@swivl.presentation.factory.classroom"
         calls:
             - ['setContainer', ['@service_container']]
         public: true
@@ -27,6 +31,7 @@ services:
         class: SwivlBundle\Controller\Classroom\PutClassroomController
         arguments:
             - "@tactician.commandbus"
+            - "@swivl.presentation.factory.classroom"
         calls:
             - ['setContainer', ['@service_container']]
         public: true
@@ -43,6 +48,7 @@ services:
         class: SwivlBundle\Controller\Classroom\PostDisableClassroomController
         arguments:
             - "@tactician.commandbus"
+            - "@swivl.presentation.factory.classroom"
         calls:
             - ['setContainer', ['@service_container']]
         public: true
@@ -51,6 +57,7 @@ services:
         class: SwivlBundle\Controller\Classroom\PostEnableClassroomController
         arguments:
             - "@tactician.commandbus"
+            - "@swivl.presentation.factory.classroom"
         calls:
             - ['setContainer', ['@service_container']]
         public: true

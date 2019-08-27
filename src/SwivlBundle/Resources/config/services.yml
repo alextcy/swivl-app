@@ -18,3 +18,12 @@ services:
             - "@swivl.repository.classroom.orm"
             - "@swivl.repository.paginator.factory"
 
+
+    # response presentation factory
+    swivl.presentation.factory.classroom:
+        class: SwivlBundle\Presentation\Response\Factory\ClassroomPresentationFactory
+
+    swivl.presentation.factory.classroom_paginated_list:
+        class: SwivlBundle\Presentation\Response\Factory\ClassroomPaginatedListPresentationFactory
+        arguments:
+            - "@swivl.presentation.factory.classroom"

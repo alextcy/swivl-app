@@ -7,6 +7,7 @@ use SwivlBundle\Controller\ApplicationResponse;
 use SwivlBundle\Controller\ApplicationResponseInterface;
 use SwivlBundle\Presentation\Request\PutClassroomPresentation;
 use SwivlBundle\Presentation\Response\ClassroomPresentation;
+use SwivlBundle\Presentation\Response\Factory\ClassroomPresentationFactory;
 use SwivlBundle\Service\Classroom\Model\Classroom;
 use SwivlBundle\Service\Classroom\Repository\ClassroomRepository;
 use SwivlBundle\Service\CommandBus\Command\UpdateClassroomCommand;
@@ -26,11 +27,18 @@ class PutClassroomController extends Controller
     private $commandBus;
 
     /**
-     * @param CommandBus $commandBus
+     * @var ClassroomPresentationFactory
      */
-    public function __construct(CommandBus $commandBus)
+    private $factory;
+
+    /**
+     * @param CommandBus $commandBus
+     * @param ClassroomPresentationFactory $factory
+     */
+    public function __construct(CommandBus $commandBus, ClassroomPresentationFactory $factory)
     {
         $this->commandBus = $commandBus;
+        $this->factory = $factory;
     }
 
     /**
@@ -55,24 +63,8 @@ class PutClassroomController extends Controller
             $putClassroom->enable
         ));
 
-        $presentation = $this->getClassroomPresentation($classroom);
+        $presentation = $this->factory->create($classroom);
 
         return new ApplicationResponse($presentation, Response::HTTP_OK);
-    }
-
-    /**
-     * @param Classroom $classroom
-     *
-     * @return ClassroomPresentation
-     */
-    private function getClassroomPresentation(Classroom $classroom): ClassroomPresentation
-    {
-        $presentation = new ClassroomPresentation();
-        $presentation->id = $classroom->getId();
-        $presentation->name = $classroom->getName();
-        $presentation->enabled = $classroom->isEnabled();
-        $presentation->updatedAt = $classroom->getUpdatedAt();
-
-        return $presentation;
     }
 }

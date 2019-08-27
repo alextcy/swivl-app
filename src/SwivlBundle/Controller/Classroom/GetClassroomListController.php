@@ -7,6 +7,7 @@ use SwivlBundle\Controller\ApplicationResponseInterface;
 use SwivlBundle\Presentation\Query\ClassroomFilterQueryPresentation;
 use SwivlBundle\Presentation\Response\ClassroomPaginatedListPresentation;
 use SwivlBundle\Presentation\Response\ClassroomPresentation;
+use SwivlBundle\Presentation\Response\Factory\ClassroomPaginatedListPresentationFactory;
 use SwivlBundle\Service\Classroom\Model\Classroom;
 use SwivlBundle\Service\Classroom\Model\Collection\ClassroomPaginatedCollection;
 use SwivlBundle\Service\Classroom\Repository\ClassroomRepository;
@@ -26,11 +27,18 @@ class GetClassroomListController extends Controller
     private $repository;
 
     /**
-     * @param ClassroomRepository $repository
+     * @var ClassroomPaginatedListPresentationFactory
      */
-    public function __construct(ClassroomRepository $repository)
+    private $factory;
+
+    /**
+     * @param ClassroomRepository $repository
+     * @param ClassroomPaginatedListPresentationFactory $factory
+     */
+    public function __construct(ClassroomRepository $repository, ClassroomPaginatedListPresentationFactory $factory)
     {
         $this->repository = $repository;
+        $this->factory = $factory;
     }
 
     /**
@@ -46,44 +54,8 @@ class GetClassroomListController extends Controller
 
         $paginatedCollection = $this->repository->search($filter);
 
-        $presentation = $this->getClassroomListPresentation($paginatedCollection);
+        $presentation = $this->factory->create($paginatedCollection);
 
         return new ApplicationResponse($presentation, Response::HTTP_OK);
-    }
-
-    /**
-     * @param ClassroomPaginatedCollection $paginatedCollection
-     *
-     * @return ClassroomPaginatedListPresentation
-     */
-    private function getClassroomListPresentation(ClassroomPaginatedCollection $paginatedCollection): ClassroomPaginatedListPresentation
-    {
-        $presentation = new ClassroomPaginatedListPresentation();
-        $presentation->total = $paginatedCollection->getTotalItems();
-        $presentation->offset = $paginatedCollection->getOffset();
-        $presentation->limit = $paginatedCollection->getLimit();
-
-        /** @var Classroom $classroom */
-        foreach ($paginatedCollection as $classroom) {
-            $presentation->classrooms[] = $this->getClassroomPresentation($classroom);
-        }
-
-        return $presentation;
-    }
-
-    /**
-     * @param Classroom $classroom
-     *
-     * @return ClassroomPresentation
-     */
-    private function getClassroomPresentation(Classroom $classroom): ClassroomPresentation
-    {
-        $presentation = new ClassroomPresentation();
-        $presentation->id = $classroom->getId();
-        $presentation->name = $classroom->getName();
-        $presentation->enabled = $classroom->isEnabled();
-        $presentation->updatedAt = $classroom->getUpdatedAt();
-
-        return $presentation;
     }
 }

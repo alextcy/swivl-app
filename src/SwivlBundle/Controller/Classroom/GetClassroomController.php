@@ -5,6 +5,7 @@ namespace SwivlBundle\Controller\Classroom;
 use SwivlBundle\Controller\ApplicationResponse;
 use SwivlBundle\Controller\ApplicationResponseInterface;
 use SwivlBundle\Presentation\Response\ClassroomPresentation;
+use SwivlBundle\Presentation\Response\Factory\ClassroomPresentationFactory;
 use SwivlBundle\Service\Classroom\Model\Classroom;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -15,6 +16,19 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class GetClassroomController extends Controller
 {
+    /**
+     * @var ClassroomPresentationFactory
+     */
+    private $factory;
+
+    /**
+     * @param ClassroomPresentationFactory $factory
+     */
+    public function __construct(ClassroomPresentationFactory $factory)
+    {
+        $this->factory = $factory;
+    }
+
     /**
      * @Route(
      *     "/classrooms/{id}",
@@ -29,24 +43,8 @@ class GetClassroomController extends Controller
      */
     public function getClassroom(Classroom $classroom): ApplicationResponseInterface
     {
-        $presentation = $this->getClassroomPresentation($classroom);
+        $presentation = $this->factory->create($classroom);
 
         return new ApplicationResponse($presentation, Response::HTTP_OK);
-    }
-
-    /**
-     * @param Classroom $classroom
-     *
-     * @return ClassroomPresentation
-     */
-    private function getClassroomPresentation(Classroom $classroom): ClassroomPresentation
-    {
-        $presentation = new ClassroomPresentation();
-        $presentation->id = $classroom->getId();
-        $presentation->name = $classroom->getName();
-        $presentation->enabled = $classroom->isEnabled();
-        $presentation->updatedAt = $classroom->getUpdatedAt();
-
-        return $presentation;
     }
 }
