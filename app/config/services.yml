@@ -30,12 +30,3 @@ services:
 #        tags: ['controller.service_arguments']
 
 
-#    SwivlBundle\Controller\Classroom\:
-#        resource: '../../src/SwivlBundle/Controller/Classroom'
-#        public: true
-#        tags: ['controller.service_arguments']
-
-    # add more services, or override services that need manual wiring
-    # AppBundle\Service\ExampleService:
-    #     arguments:
-    #         $someArgument: 'some_value'
