@@ -17,7 +17,7 @@ class ApplicationResponse implements ApplicationResponseInterface
     private $response;
 
     /**
-     * @var mixed
+     * @var ResponsePresentationInterface
      */
     private $data;
 

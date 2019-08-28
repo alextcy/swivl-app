@@ -2,8 +2,7 @@
 
 namespace SwivlBundle\EventListener\Common;
 
-use SwivlBundle\EventListener\ValidationFailedException;
-use SwivlBundle\EventListener\ValidationFailedExceptionFactoryInterface;
+use SwivlBundle\Service\Validation\ValidationFailedException;
 use SwivlBundle\Presentation\QueryPresentationInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -20,20 +19,11 @@ class ValidationListener
     private $validator;
 
     /**
-     * @var ValidationFailedExceptionFactoryInterface
+     * @param ValidatorInterface $validator
      */
-    private $validationFailedExceptionFactory;
-
-    /**
-     * @param ValidatorInterface                        $validator
-     * @param ValidationFailedExceptionFactoryInterface $validationFailedExceptionFactory
-     */
-    public function __construct(
-        ValidatorInterface $validator
-        //ValidationFailedExceptionFactoryInterface $validationFailedExceptionFactory
-    ) {
+    public function __construct(ValidatorInterface $validator)
+    {
         $this->validator = $validator;
-        //$this->validationFailedExceptionFactory = $validationFailedExceptionFactory;
     }
 
     /**
@@ -65,6 +55,6 @@ class ValidationListener
             return;
         }
 
-        //throw $this->validationFailedExceptionFactory->create('Validation failed', 0, null, $violationList);
+        throw new ValidationFailedException('Validation failed', 0, null, $violationList);
     }
 }

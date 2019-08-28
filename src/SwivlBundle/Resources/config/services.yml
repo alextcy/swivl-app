@@ -27,3 +27,8 @@ services:
         class: SwivlBundle\Presentation\Response\Factory\ClassroomPaginatedListPresentationFactory
         arguments:
             - "@swivl.presentation.factory.classroom"
+
+    swivl.factory.validation_error_presentation:
+        class: SwivlBundle\Service\Validation\ValidationErrorPresentationFactory
+        tags:
+            - { name: swivl.factory.error_presentation }
