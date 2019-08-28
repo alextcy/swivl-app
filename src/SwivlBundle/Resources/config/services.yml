@@ -32,3 +32,8 @@ services:
         class: SwivlBundle\Service\Validation\ValidationErrorPresentationFactory
         tags:
             - { name: swivl.factory.error_presentation }
+
+    swivl.factory.logic_error_presentation:
+        class: SwivlBundle\Presentation\ErrorPresentation\LogicErrorPresentationFactory
+        tags:
+            - { name: swivl.factory.error_presentation }

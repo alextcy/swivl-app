@@ -4,6 +4,7 @@ namespace SwivlBundle\Service\CommandBus\Command;
 
 use SwivlBundle\Service\Classroom\Model\Classroom;
 use SwivlBundle\Service\Classroom\Repository\ClassroomRepository;
+use SwivlBundle\Service\CommandBus\Command\Exception\ClassroomNotFoundException;
 use SwivlBundle\Service\CommandBus\CommandResult\CommandResultInterface;
 
 /**
@@ -28,13 +29,14 @@ class EnableClassroomCommandHandler
      * @param EnableClassroomCommand $command
      *
      * @return CommandResultInterface
+     * @throws ClassroomNotFoundException
      */
     public function handle(EnableClassroomCommand $command): CommandResultInterface
     {
         $classroom = $this->classroomRepository->findOneBy(['id' => $command->getId()]);
 
         if(!$classroom instanceof Classroom) {
-            //throw exception
+            throw new ClassroomNotFoundException($command->getId());
         }
 
         if (!$classroom->isEnabled()) {
