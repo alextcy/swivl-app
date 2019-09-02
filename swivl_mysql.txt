@@ -1,0 +1,66 @@
+1.a)
+SELECT my_firms.id, my_firms.name, IFNULL(my_phones.phone,"---") AS phone
+FROM my_firms
+LEFT JOIN my_phones ON my_phones.firm_id = my_firms.id
+GROUP BY my_firms.id;
+
+1.b) Вернуть все фирмы, не имеющие телефонов.
+
+SELECT my_firms.id, my_firms.name, my_phones.phone
+FROM my_firms
+LEFT JOIN my_phones ON my_phones.firm_id = my_firms.id
+WHERE my_phones.firm_id is NULL
+
+1.c) Вернуть все фирмы, имеющие не менее 2-х телефонов.
+
+SELECT my_firms.id, my_firms.name, COUNT(my_firms.id) as cnt
+FROM my_firms
+LEFT JOIN my_phones ON my_phones.firm_id = my_firms.id
+GROUP BY my_firms.id
+HAVING cnt >= 2
+
+1.d) Вернуть все фирмы, имеющие менее 2-х телефонов.
+
+SELECT my_firms.id, my_firms.name, COUNT(my_firms.id) as cnt
+FROM my_firms
+LEFT JOIN my_phones ON my_phones.firm_id = my_firms.id
+WHERE my_phones.firm_id is not NULL
+GROUP BY my_firms.id
+HAVING cnt < 2
+
+1.e) Вернуть фирму, имеющую максимальное кол-во телефонов.
+
+EXPLAIN SELECT my_firms.id, my_firms.name, COUNT(my_firms.id) AS cnt
+FROM my_firms
+LEFT JOIN my_phones on my_phones.firm_id = my_firms.id
+WHERE my_phones.firm_id is not NULL
+GROUP BY my_firms.id
+ORDER BY cnt desc
+LIMIT 1
+
+
+-------------------------------------------
+
+2.a) Вывести общий объем поставок каждого из продуктов для каждой фирмы с указанием даты последней поставки
+
+SELECT my_company.name AS company_name, 
+       my_goods.name AS goods_name, 
+       SUM(my_shipment.quantity),
+       MAX(my_shipment.shipdate) AS last_shipment_date 
+FROM my_shipment
+LEFT JOIN my_company ON my_company.compid = my_shipment.compid
+LEFT JOIN my_goods ON my_goods.goodid = my_shipment.goodid
+GROUP BY company_name, goods_name
+
+2.b) сделал наполовину :-)
+
+SELECT my_company.name AS company_name, 
+       my_goods.name AS goods_name, 
+       SUM(my_shipment.quantity),
+       MAX(my_shipment.shipdate) AS last_shipment_date,
+       (DATEDIFF(NOW(), my_shipment.shipdate)) AS diff
+FROM my_shipment
+LEFT JOIN my_company ON my_company.compid = my_shipment.compid
+LEFT JOIN my_goods ON my_goods.goodid = my_shipment.goodid
+WHERE (DATEDIFF(NOW(), my_shipment.shipdate)) <= 40
+GROUP BY company_name, goods_name
